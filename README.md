@@ -9,7 +9,7 @@ _CLI interface pending, so some rigging is necessary..._
 _In the meantime here are some notes:_
 
 * make your own yaml file like so:
-```
+```yaml
 test_1_and_the_name_of_test:
   url: 'http://the-page-you-want-to-test.com'
   response: 200
@@ -25,6 +25,7 @@ test_2_for_testing_the_next_page
   ...
 ```
 > there are two actions the web_elemental can perform: _clicking a button_ and _filling out a form_. These actions are indicated in the yaml with the `button` and `form` headings. Will make them more expressive in the future.
+
 * change the url and yaml_path in `uhura.py`
 ```python
 class TestCaseMeta(type):
