@@ -21,7 +21,7 @@ test_1_and_the_name_of_test:
     - form:
       - 'form_id'
       - ['first text field value', 'second text field value', ...]
-test_2_for_testing_the_next_page
+test_2_for_testing_the_next_page:
   ...
 ```
 > there are two actions the web_elemental can perform: _clicking a button_ and _filling out a form_. These actions are indicated in the yaml with the `button` and `form` headings. Will make them more expressive in the future.
