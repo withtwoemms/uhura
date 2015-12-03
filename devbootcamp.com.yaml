@@ -1,0 +1,50 @@
+
+test_1_prospective_student_can_get_to_application:
+  url: 'http://devbootcamp.com/'
+  response: 200
+  title: 'Dev Bootcamp | Become a Full-Stack Web Developer'
+  actions:
+    - button:
+      - a
+      - ['data-apply-button','homepage hero']
+test_2_first_and_last_name_can_be_input:
+  url: 'http://devbootcamp.com/apply/'
+  response: 200
+  title: 'Dev Bootcamp | Apply Now'
+  actions:
+    - form:
+      - 'new-application'
+      - ['Person McPersonson', 'person@email.com']
+    - button:
+      - 'input'
+      - ['value', 'NYC']
+    - button:
+      - 'input'
+      - ['value', 'SF']
+    - button:
+      - 'input'
+      - ['value', 'SD']
+    - button:
+      - 'input'
+      - ['value', 'CHI']
+    - button:
+      - 'select'
+      - ['id', 'heard-how-select']
+      - 'Social Media'
+    - button:
+      - 'button'
+      - ['type', 'submit']
+test_3_basic_application_info_can_be_input:
+  url: 'http://devbootcamp.com/apply/'
+  response: 200
+  title: 'Dev Bootcamp Application - Step 1'
+  actions:
+    - form:
+      -
+      - ['Person McPersonson', '4128955123', '111 Happy Path Lane', 'Chicago', 'IL', '60130']
+    - button:
+      - 'select'
+      - ['id', 'application_address_country']
+    - button:
+      - 'button'
+      - ['type', 'submit']
