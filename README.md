@@ -9,7 +9,7 @@ _CLI interface pending, so some rigging is necessary..._
 _In the meantime here are some notes:_
 
 * make your own yaml file like so:
-```yaml
+```
 test_1_and_the_name_of_test:
   url: 'http://the-page-you-want-to-test.com'
   response: 200
