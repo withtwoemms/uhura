@@ -37,12 +37,13 @@ class WebElemental():
 		return requests.get(url).status_code
 
 	def get_page_source(self, url):
-		xpathable = html.fromstring(requests.get(url).content) 
+		xpathable = html.fromstring(requests.get(url).content)
 		return xpathable
 
 	def get_page_title(self, url):
 		source = self.get_page_source(url)
-		return source.findtext('.//title')
+		title = source.findtext('.//title')
+		return title
 
 	def title(self, url):
 		return self.driver.title
