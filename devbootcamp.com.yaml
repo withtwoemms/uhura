@@ -5,7 +5,7 @@ test_1_prospective_student_can_get_to_application:
   title: 'Dev Bootcamp | Become a Full-Stack Web Developer'
   actions:
     - button:
-      - a
+      - 'a'
       - ['data-apply-button','homepage hero']
 test_2_first_and_last_name_can_be_input:
   url: 'http://devbootcamp.com/apply/'
@@ -14,7 +14,7 @@ test_2_first_and_last_name_can_be_input:
   actions:
     - form:
       - 'new-application'
-      - ['Person McPersonson', 'person@email.com']
+      - ['Test Testerson', 'testy@email.com']
     - button:
       - 'input'
       - ['value', 'NYC']
@@ -40,7 +40,7 @@ test_3_basic_application_info_can_be_input:
   title: 'Dev Bootcamp Application - Step 1'
   actions:
     - form:
-      -
+      - 'application-step-1'
       - ['Person McPersonson', '4128955123', '111 Happy Path Lane', 'Chicago', 'IL', '60130']
     - button:
       - 'select'
