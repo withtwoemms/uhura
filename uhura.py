@@ -47,24 +47,25 @@ class TestCaseMeta(type):
 				self._num_expectations += 1
 		dict['drive_browser'] = drive_browser
 
-		def make_assertions(self, assertions):
+		def make_assertions(self, assertions, config):
 			for assertion in assertions:
 				this = asserts[assertion](dict['elemental'].current_url())
 				that = config[assertion]
 				self.expect_equal(this, that)
 		dict['make_assertions'] = make_assertions
 
-		def gen_test(assertions, actions):
+		def gen_test(assertions, actions, config):
 			def test(self):
-				self.make_assertions(assertions)
+				self.make_assertions(assertions, config)
 				self.drive_browser(actions)
 			return test
 
 		# Populate namespace of new class with test methods
 		#-------------------------------------------------->>>
-		for tname, config in dict['elemental'].scenario.items():
+		for tname, config in dict['elemental'].scenario.iteritems():
 			assertions = [assertion for assertion in config.keys() if assertion in asserts.keys()]
-			dict[tname] = gen_test(assertions, config['actions'])
+			actions = config['actions']
+			dict[tname] = gen_test(assertions, actions, config)
 
 		print('-' * 70 + '\n')
 		return type.__new__(mcs, name, bases, dict)
