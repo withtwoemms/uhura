@@ -39,11 +39,11 @@ class TestCaseMeta(type):
 
 ### Known Issues:
 ---
-* there will be `FAIL`s in the output cause the validators broke. Fixing it now...
+* ~~there will be `FAIL`s in the output cause the validators broke. Fixing it now...~~
 * it only works with Firefox
 * ...and probably many more. If your see something, report it.
 
 ### Coming soon:
 ---
 * CLI (or something) for specifying url and yaml_path
-* working on the "transponder" interface for sending test results elsewhere
+* working on the "transponder" interface for sending test results elsewhere (working on this now...)
