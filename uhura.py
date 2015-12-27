@@ -1,8 +1,10 @@
+import logging
 import requests
 import unittest
 import sys
 import types
 
+from collections import defaultdict
 from core import click_button, fill_out_form
 from requests.exceptions import ConnectionError
 from selenium.common.exceptions import TimeoutException
@@ -10,7 +12,7 @@ from utils import ordered_load, retry
 from web_elemental import WebElemental
 
 
-class TestCaseMeta(type):
+class MetaTestCase(type):
 	def __new__(mcs, name, bases, dict):
 		dict['elemental'] = WebElemental('http://devbootcamp.com/', 'Firefox', delay=30, yaml_path='devbootcamp.com.yaml')
 
@@ -66,20 +68,35 @@ class TestCaseMeta(type):
 			assertions = [assertion for assertion in config.keys() if assertion in asserts.keys()]
 			actions = config['actions']
 			dict[tname] = gen_test(assertions, actions, config)
+		dict['_results'] = []
+		#-------------------------------------------------->>>
 
 		print('-' * 70 + '\n')
 		return type.__new__(mcs, name, bases, dict)
 
 
 class TestCase(unittest.TestCase):
-	__metaclass__ = TestCaseMeta
-
+	__metaclass__ = MetaTestCase
 
 	@classmethod
 	def tearDownClass(cls):
+		results = TestCase._results.pop()
+
+		report = {}
+		report['errors'] = defaultdict(list)
+		report['failures'] = defaultdict(list)
+
+		for test, error in results.errors:
+			report['errors'][test._testMethodName].append(error)
+		for test, failure in results.failures:
+			report['failures'][test._testMethodName].append(failure)
+
 		cls.elemental.driver.close()
+		print report
+		return report
 
 	def run(self, result=None):
+		self._results.append(result)
 		self._result = result
 		self._num_expectations = 0
 		super(TestCase, self).run(result)
@@ -105,4 +122,6 @@ class TestCase(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    unittest.main() # actually an instance of the unittest.TestProgram
+    # unittest.main(catchbreak=True, failfast=True) # actually an instance of the unittest.TestProgram
+    unittest.main(catchbreak=True) # actually an instance of the unittest.TestProgram
+	# unittest.TextTestRunner(verbosity=2).run(suite)
