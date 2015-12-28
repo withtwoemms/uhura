@@ -8,6 +8,7 @@ from collections import defaultdict
 from core import click_button, fill_out_form
 from requests.exceptions import ConnectionError
 from selenium.common.exceptions import TimeoutException
+from transponder import Transponder
 from utils import ordered_load, retry
 from web_elemental import WebElemental
 
@@ -15,7 +16,6 @@ from web_elemental import WebElemental
 class MetaTestCase(type):
 	def __new__(mcs, name, bases, dict):
 		dict['elemental'] = WebElemental('http://devbootcamp.com/', 'Firefox', delay=30, yaml_path='devbootcamp.com.yaml')
-
 
 		# Methods and functions for asserting & driving
 		#-------------------------------------------------->>>
@@ -92,8 +92,7 @@ class TestCase(unittest.TestCase):
 			report['failures'][test._testMethodName].append(failure)
 
 		cls.elemental.driver.close()
-		print report
-		return report
+		return Transponder(report, 'http://localhost:2020')
 
 	def run(self, result=None):
 		self._results.append(result)
@@ -122,6 +121,4 @@ class TestCase(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    # unittest.main(catchbreak=True, failfast=True) # actually an instance of the unittest.TestProgram
     unittest.main(catchbreak=True) # actually an instance of the unittest.TestProgram
-	# unittest.TextTestRunner(verbosity=2).run(suite)

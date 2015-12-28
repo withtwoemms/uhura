@@ -13,19 +13,15 @@ function handleRequest(request, response){
 			*/
 
             body += data;
-            body = JSON.parse(body);
             if (body.length > 1e6) {
                 request.connection.destroy();
             }
-            console.log(body);
+            payload = JSON.parse(body);
+            console.log(payload);
         });
 	} 
-    // return a response to client
-    // response.end('Mission Accomplished');
     response.writeHeader(200, {'Content-Type': 'application/json'});
-    // response.end(body);
-    // response.end(JSON.stringify(body));
-    response.end();
+    response.end('\n*** Broadcast received! ***\n');
 }
 
 var server = http.createServer(handleRequest);
