@@ -65,10 +65,12 @@ class MetaTestCase(type):
 		# Populate namespace of new class with test methods
 		#-------------------------------------------------->>>
 		for tname, config in dict['elemental'].scenario.iteritems():
-			assertions = [assertion for assertion in config.keys() if assertion in asserts.keys()]
-			actions = config['actions']
-			dict[tname] = gen_test(assertions, actions, config)
+			if 'test' in tname:
+				assertions = [assertion for assertion in config.keys() if assertion in asserts.keys()]
+				actions = config['actions']
+				dict[tname] = gen_test(assertions, actions, config)
 		dict['_results'] = []
+		dict['destination'] = dict['elemental'].scenario['destination']
 		#-------------------------------------------------->>>
 
 		print('-' * 70 + '\n')
@@ -92,7 +94,8 @@ class TestCase(unittest.TestCase):
 			report['failures'][test._testMethodName].append(failure)
 
 		cls.elemental.driver.close()
-		return Transponder(report, 'http://localhost:2020')
+		return Transponder(report, TestCase.destination)
+		# return Transponder(report, 'http://localhost:2020')
 
 	def run(self, result=None):
 		self._results.append(result)
