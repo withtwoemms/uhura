@@ -25,7 +25,16 @@ test_1_and_the_name_of_test:
 test_2_for_testing_the_next_page:
   ...
 ```
-> be sure to specify the endpoint to which you would liek to send your test results under the top-level `destination` key in the scenario yaml.
+> be sure to specify the endpoint to which you would like to send your test results under the top-level `destination` key in the scenario yaml.
+
+> there is a test server included. To run it and see the Transponder in action, open a tty and issue `node test-server.js`. You will see a set of test results populate once a TestCase is complete. Output should look something like the following:
+
+```
+Server listening on: http://localhost:2020
+{ failures: { test_3_basic_application_info_can_be_input: [ 'Traceback (most recent call last):\n  File "uhura.py", line 108, in _fail\n    raise failure\nAssertionError: (1)\n\t>>> Expected: \n\t    - Dev Bootcamp | Apply Now, to equal \n\t    - Dev Bootcamp Application - Step 1. \n' ] },
+  errors: { test_3_basic_application_info_can_be_input: [ 'Traceback (most recent call last):\n  File "uhura.py", line 114, in _error\n    raise error\nAssertionError: <form id="application-step-1"> element NOT FOUND!\n' ] } }
+```
+
 > there are two actions the web_elemental can perform: _clicking a button_ and _filling out a form_. These actions are indicated in the yaml with the `button` and `form` headings. Will make them more expressive in the future.
 
 * change the url and yaml_path in `uhura.py`
